@@ -1,0 +1,57 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int main()
+{
+    FILE *fp;
+    char filename[20];
+    char data[100];
+
+    printf("Enter file name: ");
+    scanf("%s", filename);
+
+    fp = fopen(filename, "w");
+
+    if(fp == NULL)
+    {
+        printf("Error opening file!\n");
+        exit(1);
+    }
+
+    printf("Enter data to write to the file: ");
+    scanf("%s", data);
+
+    fprintf(fp, "%s", data);
+
+    printf("Data written to the file successfully!\n");
+
+    fclose(fp);
+
+    fp = fopen(filename, "r");
+
+    if(fp == NULL)
+    {
+        printf("Error opening file!\n");
+        exit(1);
+    }
+
+    printf("Data read from the file: ");
+
+    while(fgets(data, 100, fp) != NULL)
+    {
+        printf("%s", data);
+    }
+
+    fclose(fp);
+
+    if(remove(filename) == 0)
+    {
+        printf("File deleted successfully!\n");
+    }
+    else
+    {
+        printf("Error deleting file!\n");
+    }
+
+    return 0;
+}
